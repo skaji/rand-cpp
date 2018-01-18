@@ -1,0 +1,6 @@
+*.o
+/main
+*.so
+/eg/eg1
+/eg/eg2
+
