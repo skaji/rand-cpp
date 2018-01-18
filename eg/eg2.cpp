@@ -3,24 +3,25 @@
 #include <string>
 #include <vector>
 #include "Rand.hpp"
+#include "benchmark.hpp"
 
 using namespace std;
 
-int main(void) {
+void new_run() {
   Rand rand;
+  int i = rand.call();
+  (void)i;
+}
+Rand shared;
+void shared_run() {
+  int i = shared.call();
+  (void)i;
+}
 
-  map<int, int> times;
-  for (int i = 0; i < 10000000; ++i) {
-    int j = rand.call();
-    if (times.find(j) == times.end()) {
-      times[j] = 1;
-    } else {
-      times[j]++;
-    }
-  }
-  for (map<int, int>::const_iterator it = times.begin(); it != times.end(); ++it) {
-    cout << it->first << " " << it->second << "\n";
-  }
-
+int main(void) {
+  // benchmark::timethis(100000, new_run);
+  benchmark::cmpthese(100000,
+                      "new", new_run,
+                      "shared", shared_run);
   return 0;
 }

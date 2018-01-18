@@ -4,7 +4,7 @@ eg1: eg1.o
 	g++ -o $@ $< -L$(PWD)/.. -lrand -Wl,-rpath,$(PWD)/..
 
 eg2: eg2.o
-	g++ -o $@ $< -L$(PWD)/.. -lrand -Wl,-rpath,$(PWD)/..
+	g++ -o $@ $< -L$(PWD)/.. -lrand -Wl,-rpath,$(PWD)/.. -L$(PWD)/../../benchmark-cpp -lbenchmark -Wl,-rpath,$(PWD)/../../benchmark-cpp
 
 %.o: %.cpp
-	g++ -I$(PWD)/.. -fPIC -Wall -Werror -Wextra -O0 -g -c -o $@ $<
+	g++ -I/home/skaji/src/github.com/skaji/benchmark-cpp -I$(PWD)/.. -fPIC -Wall -Werror -Wextra -O0 -g -c -o $@ $<
