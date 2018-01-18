@@ -1,18 +1,20 @@
 #include "Rand.hpp"
 
-pid_t Rand::pid_(getpid());
-boost::random::random_device Rand::seed_;
-boost::random::mt19937 Rand::engine_(seed_());
-boost::random::uniform_int_distribution<> Rand::dist_(0, 9999);
+#include <boost/random.hpp>
+#include <boost/random/mersenne_twister.hpp>
+#include <boost/random/random_device.hpp>
 
 Rand::Rand() {}
 Rand::~Rand() {}
 
 int Rand::call() const {
-  pid_t pid = getpid();
-  if (pid_ != pid) {
-    pid_ = pid;
-    engine_.seed(seed_());
+  static pid_t pid(getpid());
+  static boost::random::random_device seed;
+  static boost::random::mt19937 engine(seed());
+  static boost::random::uniform_int_distribution<> dist(0, 9999);
+  if (pid != getpid()) {
+    pid = getpid();
+    engine.seed(seed());
   }
-  return dist_(engine_);
+  return dist(engine);
 }
