@@ -20,7 +20,7 @@ void shared_run() {
 
 int main(void) {
   // benchmark::timethis(100000, new_run);
-  benchmark::cmpthese(100000,
+  benchmark::cmpthese(1000000,
                       "new", new_run,
                       "shared", shared_run);
   return 0;

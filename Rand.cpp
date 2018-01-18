@@ -1,8 +1,18 @@
 #include "Rand.hpp"
 
-boost::random::random_device Rand::seed_;
+#include <time.h>
 
-Rand::Rand() : engine_(seed_()), dist_(0, 9999) {}
+pid_t Rand::pid_(getpid());
+boost::random::mt19937 Rand::engine_(time(NULL) ^ pid_);
+boost::random::uniform_int_distribution<> Rand::dist_(0, 9999);
+
+Rand::Rand() {
+  pid_t pid = getpid();
+  if (pid_ != pid) {
+    pid_ = pid;
+    engine_.seed(time(NULL) ^ pid_);
+  }
+}
 Rand::~Rand() {}
 
 int Rand::call() const {

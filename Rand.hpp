@@ -11,9 +11,9 @@ class Rand {
   ~Rand();
   int call() const;
  private:
-  static boost::random::random_device seed_;
-  mutable boost::random::mt19937 engine_;
-  boost::random::uniform_int_distribution<> dist_;
+  static pid_t pid_;
+  static boost::random::mt19937 engine_;
+  static boost::random::uniform_int_distribution<> dist_;
 };
 
 #endif
