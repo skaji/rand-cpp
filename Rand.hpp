@@ -12,6 +12,7 @@ class Rand {
   int call() const;
  private:
   static pid_t pid_;
+  static boost::random::random_device seed_;
   static boost::random::mt19937 engine_;
   static boost::random::uniform_int_distribution<> dist_;
 };
